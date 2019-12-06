@@ -12,16 +12,25 @@ module.exports = {
   getProduct: async (req, res, next) => {
     const { productId } = req.params;
     const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'No valid entry for provided productId'})
+    }
     res.status(200).json(product);
   },
   updateProduct: async (req, res, next) => {
     const { productId } = req.params;
-    await Product.findByIdAndUpdate(productId, req.body);
+    const product = await Product.findByIdAndUpdate(productId, req.body);
+    if (!product) {
+      return res.status(404).json({ message: 'No valid entry for provided productId'})
+    }
     res.status(200).json({ success: true });
   },
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;
     const products = await Product.deleteOne({ _id: productId});
+    if (!product) {
+      return res.status(404).json({ message: 'No valid entry for provided productId'})
+    }
     res.status(200).json(products);
   },
 };
