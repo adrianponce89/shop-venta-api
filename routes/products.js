@@ -1,46 +1,15 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express-promise-router')();
 
-router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'Get products',
-  });
-});
+const ProductController = require('../controllers/products');
 
-router.post('/', (req, res, next) => {
-  console.log(req.body)
-  const product = {
-    name: req.body.name,
-    price: req.body.price,
-  };
-  res.status(200).json({
-    message: 'Product was created',
-    product
-  });
-});
+router.route('/')
+	.get(ProductController.getProducts)
+	.post(ProductController.newProduct)
 
-router.get('/:productId', (req, res, next) => {
-  const { productId } = req.params;
-  res.status(200).json({
-    message: 'Get product',
-    productId,
-  });
-});
-
-router.patch('/:productId', (req, res, next) => {
-  const { productId } = req.params;
-  res.status(200).json({
-    message: 'Update product',
-    productId,
-  });
-});
-
-router.delete('/:productId', (req, res, next) => {
-  const { productId } = req.params;
-  res.status(200).json({
-    message: 'Delete product',
-    productId,
-  });
-});
+router.route('/:productId')
+	.get(ProductController.getProduct)
+	.put(ProductController.updateProduct)
+	.patch(ProductController.updateProduct)
+  .delete(ProductController.deleteProduct)
 
 module.exports = router;

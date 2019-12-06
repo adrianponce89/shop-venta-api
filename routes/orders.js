@@ -1,32 +1,15 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express-promise-router')();
 
-router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'Get orders',
-  });
-});
+const OrderController = require('../controllers/orders');
 
-router.post('/', (req, res, next) => {
-  res.status(201).json({
-    message: 'Order was created',
-  });
-});
+router.route('/')
+	.get(OrderController.getOrders)
 
-router.get('/:orderId', (req, res, next) => {
-  const { orderId } = req.params;
-  res.status(200).json({
-    message: 'Order detail',
-    orderId
-  });
-});
+router.route('/:productId')
+	.post(OrderController.newOrder)
 
-router.delete('/:orderId', (req, res, next) => {
-  const { orderId } = req.params;
-  res.status(200).json({
-    message: 'Order deleted',
-    orderId
-  });
-});
+router.route('/:orderId')
+	.get(OrderController.getOrder)
+  .delete(OrderController.deleteOrder)
 
 module.exports = router;

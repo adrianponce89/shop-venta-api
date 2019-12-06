@@ -1,4 +1,5 @@
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const express = require('express');
 const app = express();
@@ -7,9 +8,14 @@ const app = express();
 const products = require('./routes/products');
 const orders = require('./routes/orders');
 
+// db connection
+mongoose.connect('mongodb://localhost/shop-venta-api', {
+  useNewUrlParser: true, useUnifiedTopology: true
+});
+
 // middlewares
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extendent: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
