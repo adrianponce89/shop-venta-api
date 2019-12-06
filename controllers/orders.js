@@ -16,7 +16,7 @@ module.exports = {
   },
   getOrder: async (req, res, next) => {
     const { orderId } = req.params;
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId).populate('product');;
     res.status(200).json(order);
   },
   deleteOrder: async (req, res, next) => {

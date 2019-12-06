@@ -4,6 +4,8 @@ const OrderController = require('../controllers/orders');
 
 router.route('/')
 	.get(OrderController.getOrders)
+
+router.route('/:productId')
 	.post(OrderController.newOrder)
 
 router.route('/:orderId')
