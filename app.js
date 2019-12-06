@@ -14,4 +14,20 @@ app.use(morgan('dev'));
 app.use('/products', products);
 app.use('/orders', orders);
 
+// catch 404 Errors and Forward them to Error Handler
+app.use((req, res, next) => {
+	const err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+
+// Error Handler Function
+app.use((err, req, res, next) => {
+	res.status(err.status || 500).json({
+		error: {
+			message: err.message
+		}
+	});
+});
+
 module.exports = app;
