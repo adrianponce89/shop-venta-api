@@ -19,7 +19,7 @@ module.exports = {
   },
   updateProduct: async (req, res, next) => {
     const { productId } = req.params;
-    const product = await Product.findByIdAndUpdate(productId, req.body);
+    const product = await Product.findByIdAndUpdate(productId, { $set: req.body });
     if (!product) {
       return res.status(404).json({ message: 'No valid entry for provided productId'})
     }
