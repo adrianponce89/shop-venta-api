@@ -16,7 +16,7 @@ module.exports = {
   },
   deleteOrder: async (req, res, next) => {
     const { orderId } = req.params;
-    const orders = await Order.deleteOne(orderId);
+    const orders = await Order.deleteOne({ _id: orderId});
     res.status(200).json(orders);
   },
 };

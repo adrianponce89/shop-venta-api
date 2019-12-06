@@ -21,7 +21,7 @@ module.exports = {
   },
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;
-    const products = await Product.deleteOne(productId);
+    const products = await Product.deleteOne({ _id: productId});
     res.status(200).json(products);
   },
 };
