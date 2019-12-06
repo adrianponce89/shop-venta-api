@@ -9,6 +9,8 @@ const orders = require('./routes/orders');
 
 // middlewares
 app.use(morgan('dev'));
+app.use(express.urlencoded({ extendent: false }));
+app.use(express.json());
 
 // routes
 app.use('/products', products);
